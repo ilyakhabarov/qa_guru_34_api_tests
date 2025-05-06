@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.stoloto'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(
+            "io.rest-assured:rest-assured:5.5.1",
+            "org.junit.jupiter:junit-jupiter:5.12.0",
+            "org.slf4j:slf4j-simple:2.0.17"
+    )
+    testRuntimeOnly(
+            "org.junit.jupiter:junit-jupiter-engine:5.12.0",
+            "org.junit.platform:junit-platform-launcher:1.12.0",
+            "org.junit.platform:junit-platform-engine:1.12.0"
+    )
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
