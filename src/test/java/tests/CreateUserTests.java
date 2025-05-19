@@ -20,9 +20,7 @@ public class CreateUserTests extends TestBase {
     @Test
     @DisplayName("Успешное создание пользователя")
     void createNewUserSuccessfulTest() {
-        CreateNewUserRequestModel createData = new CreateNewUserRequestModel();
-        createData.setJob("tester");
-        createData.setName("Ilya");
+        CreateNewUserRequestModel createData = new CreateNewUserRequestModel("Ilya", "tester", null);
 
         CreateNewUserResponseModel response = step("Делаем запрос", () ->
                 given(createNewUserRequestSpec)
@@ -49,8 +47,7 @@ public class CreateUserTests extends TestBase {
     @Test
     @DisplayName("Успешное создание пользователя без имени")
     void createNewUserWithoutNameTest() {
-        CreateNewUserRequestModel createData = new CreateNewUserRequestModel();
-        createData.setJob("tester");
+        CreateNewUserRequestModel createData = new CreateNewUserRequestModel(null, "tester",null);
 
         CreateNewUserResponseModel response = step("Делаем запрос", () ->
                 given(createNewUserRequestSpec)
@@ -74,8 +71,7 @@ public class CreateUserTests extends TestBase {
     @Test
     @DisplayName("Успешное создание пользователя без профессии")
     void createNewUserWithoutJobTest() {
-        CreateNewUserRequestModel createData = new CreateNewUserRequestModel();
-        createData.setName("Ilya");
+        CreateNewUserRequestModel createData = new CreateNewUserRequestModel("Ilya", null, null);
 
         CreateNewUserResponseModel response = step("Делаем запрос", () ->
                 given(createNewUserRequestSpec)
@@ -119,8 +115,7 @@ public class CreateUserTests extends TestBase {
     @Test
     @DisplayName("Отправка запроса с недекларированым параметром")
     void createNewUserWithWrongDataTypesTest() {
-        CreateNewUserRequestModel createData = new CreateNewUserRequestModel();
-        createData.setTest("Test string");
+        CreateNewUserRequestModel createData = new CreateNewUserRequestModel("Ilya", "tester", "Test string");
 
         CreateNewUserResponseModel response = step("Делаем запрос", () ->
                 given(createNewUserRequestSpec)
